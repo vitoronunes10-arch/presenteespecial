@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para a minha Princesa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Lora (serif elegante) & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background-color: #faf7f2;
+            color: #2d2a26;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .sans-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Cartão estilo papel artesanal */
+        .paper-card {
+            background-color: #ffffff;
+            border: 1px solid #e8e2d9;
+            box-shadow: 0 10px 30px rgba(45, 42, 38, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Animação de transição suave estilo leitura */
+        .fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Botão Não Fujão */
+        #btnNo {
+            transition: all 0.25s ease-out;
+        }
+
+        /* Detalhe de linha de escrita */
+        .separator-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d8d0c5, transparent);
+        }
+    </style>
+</head>
+<body class="flex flex-col justify-between items-center min-h-screen p-4 sm:p-6 md:p-10 relative selection:bg-rose-100 selection:text-rose-900">
+
+    <!-- TELA DE CARREGAMENTO DISCRETA -->
+    <div id="loadingScreen" class="fixed inset-0 bg-[#faf7f2] z-50 flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
+        <div class="w-1.5 h-1.5 bg-rose-400 rounded-full animate-ping mb-4"></div>
+        <p class="sans-font text-xs tracking-widest text-stone-500 uppercase font-medium">Escrevendo pra você...</p>
+    </div>
+
+    <!-- HEADER MINIMALISTA COM CONTADOR -->
+    <header class="w-full max-w-xl text-center py-4 z-10">
+        <span class="sans-font text-xs tracking-widest text-stone-400 uppercase font-medium block mb-1">
+            Desde 24 de Outubro de 2026
+        </span>
+        <div id="timeCounter" class="sans-font text-xs text-stone-500 font-medium">
+            Calculando nosso tempo...
+        </div>
+        <div class="separator-line my-4 w-32 mx-auto"></div>
+    </header>
+
+    <!-- CONTAINER PRINCIPAL DAS CARTAS -->
+    <main class="w-full max-w-xl relative z-10 my-auto">
+        
+        <!-- CARTA 1: O Tempo e o Início -->
+        <article id="step1" class="paper-card rounded-2xl p-6 sm:p-10 fade-in space-y-6">
+            <div class="space-y-1">
+                <span class="sans-font text-xs text-rose-700 font-semibold uppercase tracking-wider">Primeira carta</span>
+                <h1 class="text-2xl sm:text-3xl font-normal text-stone-800 italic">
+                    Sobre o tempo e sobre ter você aqui.
+                </h1>
+            </div>
+
+            <div class="text-stone-700 leading-relaxed text-base sm:text-lg space-y-5 text-left font-normal">
+                <p>
+                    Se alguém me dissesse há duas semanas que uma pessoa que conheci no dia <strong>24/10/2026</strong> mudaria completamente a forma como eu encaro o meu dia, eu provavelmente não me esqueceria do impacto disso. É estranho parar para pensar, porque no calendário faz pouquíssimo tempo — são só alguns dias. Mas aqui dentro, a sensação é de que você sempre fez falta.
+                </p>
+                <p>
+                    Desde o momento em que a gente começou a se falar, meu celular deixou de ser só tela e virou o lugar onde eu encontro meu momento favorito do dia. Eu me pego sorrindo sozinho olhando pras mensagens de um jeito que há muito tempo eu não fazia. É engraçado como de repente tudo parece girar em torno da expectativa de saber como foi seu dia, do que você tá fazendo ou de simplesmente ouvir você me chamando de <span class="italic font-medium text-rose-800">Xuxu</span>.
+                </p>
+                <p>
+                    O tempo é uma coisa muito doida. Tem gente que passa meses conversando com alguém e não sente nada. Com você, em questão de dias, parece que um espaço enorme na minha vida foi preenchido de um jeito calmo, sincero e muito bonito.
+                </p>
+            </div>
+
+            <div class="pt-4 flex justify-end">
+                <button onclick="goToStep(2)" class="sans-font px-6 py-2.5 bg-stone-800 hover:bg-stone-900 text-stone-100 text-sm font-medium rounded-full shadow-sm transition-all duration-200">
+                    Continuar lendo ➔
+                </button>
+            </div>
+        </article>
+
+        <!-- CARTA 2: A Distância e a Saudade -->
+        <article id="step2" class="paper-card rounded-2xl p-6 sm:p-10 fade-in hidden space-y-6">
+            <div class="space-y-1">
+                <span class="sans-font text-xs text-rose-700 font-semibold uppercase tracking-wider">Segunda carta</span>
+                <h2 class="text-2xl sm:text-3xl font-normal text-stone-800 italic">
+                    A distância que a gente encurta todo dia.
+                </h2>
+            </div>
+
+            <div class="text-stone-700 leading-relaxed text-base sm:text-lg space-y-5 text-left font-normal">
+                <p>
+                    Eu não vou fingir que a distância é fácil. Às vezes dá uma vontade enorme de estar no mesmo lugar que você, poder te olhar nos olhos sem ser por uma tela, te abraçar bem apertado e passar uma tarde inteira conversando sem olhar pra hora. O peso dos quilômetros é real e às vezes bate aquela saudade de um momento que a gente ainda nem viveu pessoalmente.
+                </p>
+                <p>
+                    Mas ao mesmo tempo, percebi uma coisa linda entre nós dois: a distância física não tem força nenhuma contra a nossa vontade de se fazer presente. Mesmo longe, você tá comigo no meu café da manhã, nas pausas da tarde e quando vou dormir. A gente encontrou um jeito nosso de nos apoiar, de rir das coisas bobas e de criar uma intimidade tão verdadeira que faz o mapa parecer um detalhe pequeno.
+                </p>
+                <p>
+                    Eu gosto de você de verdade. Não é um encanto rápido ou passageiro. É a certeza de que a sua presença na minha vida faz toda a diferença, independente de onde a gente estiver no mapa.
+                </p>
+            </div>
+
+            <div class="pt-4 flex justify-between items-center">
+                <button onclick="goToStep(1)" class="sans-font text-xs text-stone-400 hover:text-stone-600 font-medium">Voltar</button>
+                <button onclick="goToStep(3)" class="sans-font px-6 py-2.5 bg-stone-800 hover:bg-stone-900 text-stone-100 text-sm font-medium rounded-full shadow-sm transition-all duration-200">
+                    Continuar lendo ➔
+                </button>
+            </div>
+        </article>
+
+        <!-- CARTA 3: O Sentimento e a Certeza -->
+        <article id="step3" class="paper-card rounded-2xl p-6 sm:p-10 fade-in hidden space-y-6">
+            <div class="space-y-1">
+                <span class="sans-font text-xs text-rose-700 font-semibold uppercase tracking-wider">Terceira carta</span>
+                <h2 class="text-2xl sm:text-3xl font-normal text-stone-800 italic">
+                    Para a minha Princesa...
+                </h2>
+            </div>
+
+            <div class="text-stone-700 leading-relaxed text-base sm:text-lg space-y-5 text-left font-normal">
+                <p>
+                    Eu te chamo de <span class="italic font-medium text-rose-800">Princesa</span> porque você realmente trouxe uma delicadeza e um carinho pra minha vida que eu não imaginava encontrar. Você me faz querer ser melhor, me faz querer cuidar de você, te ouvir e estar ao seu lado em todos os momentos — nos dias bons e nos dias difíceis também.
+                </p>
+                <p>
+                    Não importa se a gente se conhece há pouco tempo. O que importa é a honestidade do que sinto por você hoje. Eu não quero ficar só no "vamos ver no que dá" ou deixar as coisas soltas no ar. Eu sei bem o que quero, e o que eu quero é construir uma história de verdade com você, com calma, com respeito e com todo o amor que tá aqui guardado.
+                </p>
+                <p>
+                    Tenho certeza de que isso é só o começo de tudo o que ainda vamos viver juntos. E por isso, quero te fazer um pedido direto do fundo do meu coração...
+                </p>
+            </div>
+
+            <div class="pt-4 flex justify-between items-center">
+                <button onclick="goToStep(2)" class="sans-font text-xs text-stone-400 hover:text-stone-600 font-medium">Voltar</button>
+                <button onclick="goToStep(4)" class="sans-font px-6 py-2.5 bg-rose-800 hover:bg-rose-900 text-white text-sm font-medium rounded-full shadow-sm transition-all duration-200">
+                    Ver a pergunta ❤️
+                </button>
+            </div>
+        </article>
+
+        <!-- TELA 4: O PEDIDO -->
+        <article id="step4" class="paper-card rounded-2xl p-6 sm:p-10 fade-in hidden text-center space-y-8">
+            <div class="space-y-2">
+                <span class="sans-font text-xs text-rose-700 font-semibold uppercase tracking-wider">A Pergunta</span>
+                <h2 class="text-3xl sm:text-4xl font-normal text-stone-900 italic">
+                    Minha Princesa,
+                </h2>
+                <p class="text-stone-600 text-lg pt-2">
+                    Você aceita namorar comigo?
+                </p>
+            </div>
+
+            <!-- Botões Sim / Não -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 min-h-[70px] relative pt-4">
+                <button id="btnYes" class="sans-font w-full sm:w-auto px-8 py-3.5 bg-rose-800 hover:bg-rose-900 text-white font-medium text-base rounded-full shadow-md hover:shadow-rose-900/20 transition-all duration-200 transform hover:-translate-y-0.5">
+                    Sim, eu aceito! 💍
+                </button>
+
+                <button id="btnNo" class="sans-font w-full sm:w-auto px-6 py-3 bg-stone-100 hover:bg-stone-200 text-stone-600 font-medium text-sm rounded-full transition-all">
+                    Não
+                </button>
+            </div>
+        </article>
+
+        <!-- TELA FINAL: RESPOSTA AO SIM -->
+        <article id="successCard" class="paper-card rounded-2xl p-6 sm:p-10 fade-in hidden text-center space-y-6">
+            <span class="text-4xl inline-block">🌸</span>
+            <h2 class="text-3xl sm:text-4xl font-normal text-stone-900 italic">
+                Você me fez a pessoa mais feliz do mundo.
+            </h2>
+            <div class="text-stone-700 leading-relaxed text-base sm:text-lg space-y-4 text-left font-normal max-w-md mx-auto">
+                <p>
+                    Prometo te cuidar com todo o carinho, respeitar o nosso tempo, fazer de tudo para encurtar essa distância e estar ao seu lado pra tudo. 
+                </p>
+                <p class="text-center pt-2 italic text-rose-800 font-medium">
+                    Te amo, minha Princesa! <br>
+                    <span class="sans-font text-xs text-stone-400 not-italic uppercase tracking-widest block mt-3">Com todo meu amor, do seu Xuxu.</span>
+                </p>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- FOOTER SUTIL -->
+    <footer class="w-full text-center py-6 z-10">
+        <p class="sans-font text-xs text-stone-400">Feito com todo o carinho do mundo para você.</p>
+    </footer>
+
+    <script>
+        // 1. Tela de Carregamento Discreta
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loading = document.getElementById('loadingScreen');
+                loading.style.opacity = '0';
+                setTimeout(() => loading.style.display = 'none', 700);
+            }, 1200);
+        });
+
+        // 2. Navegação entre as cartas
+        function goToStep(stepNumber) {
+            document.querySelectorAll('main > article').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`step${stepNumber}`);
+            if (target) {
+                target.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // 3. Contador de Tempo sutil desde 24/10/2026
+        const startDate = new Date('2026-10-24T00:00:00');
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('timeCounter').innerHTML = 
+                    `${days} dias, ${hours}h ${minutes}m ${seconds}s juntos em pensamento`;
+            } else {
+                document.getElementById('timeCounter').innerHTML = `Guardando o nosso primeiro dia...`;
+            }
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // 4. Esquiva suave do botão "Não"
+        const btnNo = document.getElementById('btnNo');
+
+        function moveButton() {
+            btnNo.style.position = 'fixed';
+            const padding = 20;
+            const maxX = window.innerWidth - btnNo.offsetWidth - padding;
+            const maxY = window.innerHeight - btnNo.offsetHeight - padding;
+
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            btnNo.style.left = `${randomX}px`;
+            btnNo.style.top = `${randomY}px`;
+        }
+
+        btnNo.addEventListener('mouseenter', moveButton);
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+        btnNo.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+
+        // 5. Aceite do Botão "SIM"
+        const btnYes = document.getElementById('btnYes');
+        const step4 = document.getElementById('step4');
+        const successCard = document.getElementById('successCard');
+
+        btnYes.addEventListener('click', () => {
+            step4.classList.add('hidden');
+            successCard.classList.remove('hidden');
+            btnNo.style.display = 'none';
+
+            // Confetes discretos
+            const duration = 3.5 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 2,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#e11d48', '#f43f5e', '#fda4af', '#fef3c7']
+                });
+                confetti({
+                    particleCount: 2,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#e11d48', '#f43f5e', '#fda4af', '#fef3c7']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        });
+    </script>
+</body>
+</html>
